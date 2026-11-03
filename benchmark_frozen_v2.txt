@@ -1,0 +1,11 @@
+﻿NL2SQL Operational Benchmark v2
+Status: FROZEN
+Reference verification: PASS
+Main evaluation questions: 20
+Held-out questions: 8; excluded from tuning
+Engine behavior: not yet evaluated
+
+Verified SHA-256 hashes:
+operations_v2.db : 06e10a9dbd17eb47a9ed960296b62f164f38fb65aee9e6d1bdf2741e854729f3
+eval_questions_v2.json : c3da6b2b8c08c64dc6052cef714795412386ebeeaa6e6e2657f135a5586bc5b4
+eval_heldout_v1.json : bb71bf4a424bfdf83cc24a47093a3fc7b7aacdda90b2d836d7822154cdca5269

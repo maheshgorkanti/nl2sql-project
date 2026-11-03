@@ -1,0 +1,18 @@
+﻿NL2SQL Evaluation Baseline — v2
+Status: Reference verification PASS
+Date: 2026-10-14
+
+eval_questions_v2.json
+c3da6b2b8c08c64dc6052cef714795412386ebeeaa6e6e2657f135a5586bc5b4
+
+eval_heldout_v1.json
+bb71bf4a424bfdf83cc24a47093a3fc7b7aacdda90b2d836d7822154cdca5269
+
+operations_v2.db
+06e10a9dbd17eb47a9ed960296b62f164f38fb65aee9e6d1bdf2741e854729f3
+
+Scope:
+- 20 main evaluation questions.
+- 8 separate held-out questions; do not use for tuning.
+- Reference SQL and evaluation metadata verified.
+- NL2SQL engine behavior not yet evaluated.

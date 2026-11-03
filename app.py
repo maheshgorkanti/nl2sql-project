@@ -1,54 +1,110 @@
-import time
-import logging
-logging.basicConfig(level=logging.INFO)
-from fastapi import FastAPI
-import sqlite3
-import pandas as pd
-from sql_engine import generate_sql, run_sql
 
+import logging
+import time
+
+from fastapi import FastAPI, HTTPException
+
+from sql_engine import generate_sql, run_sql
+from operational_query_engine import answer_operational_question
+
+logging.basicConfig(level=logging.INFO)
+logger = logging.getLogger(__name__)
 
 app = FastAPI()
 
-conn = sqlite3.connect("company.db", check_same_thread=False)
 
 @app.get("/")
 def home():
-    return {"message": "NL2SQL API Running 🚀"}
+    return {"message": "NL2SQL API Running"}
+
 
 @app.get("/query")
 def query(question: str):
+    question = question.strip()
+
+    if not question:
+        raise HTTPException(
+            status_code=422,
+            detail="Please provide a question."
+        )
+
+    sql = generate_sql(question)
+
+    if sql is None:
+        raise HTTPException(
+            status_code=422,
+            detail={
+                "code": "unsupported_question",
+                "message": (
+                    "This question is not supported by the current "
+                    "query patterns and database schema."
+                ),
+                "supported_examples": [
+                    "Total sales",
+                    "Top 3 customers by total spending",
+                    "Average order value",
+                    "Number of orders",
+                    "Highest order amount",
+                ],
+            },
+        )
+
+    logger.info("Question: %s", question)
+    logger.info("Generated SQL: %s", sql)
+
+    start = time.perf_counter()
+    result = run_sql(sql)
+    execution_time = round(time.perf_counter() - start, 4)
+
+    if isinstance(result, dict) and "error" in result:
+        raise HTTPException(
+            status_code=500,
+            detail={
+                "code": "query_execution_failed",
+                "message": result["error"],
+            },
+        )
+
+    return {
+        "question": question,
+        "sql": sql,
+        "result": result,
+        "execution_time": execution_time,
+        "row_count": len(result),
+        "status": "success",
+        "message": (
+            "Query executed successfully"
+            if result
+            else "Query executed successfully; no matching records"
+        ),
+    }
+
+
+@app.get("/operational-query")
+def operational_query(question: str):
+    question = question.strip()
+
+    if not question:
+        raise HTTPException(
+            status_code=422,
+            detail="Please provide a question."
+        )
+
+    logger.info("Operational question: %s", question)
+
     try:
-        sql = generate_sql(question)
+        result = answer_operational_question(question)
+    except Exception:
+        logger.exception("Operational query failed")
+        raise HTTPException(
+            status_code=500,
+            detail={
+                "code": "operational_query_failed",
+                "message": "The operational query could not be completed."
+            }
+        )
 
-        logging.info(f"Question: {question}")
-        logging.info(f"Generated SQL: {sql}")
-
-        start = time.time()
-        result = run_sql(sql)
-        end = time.time()
-
-        execution_time = round(end - start, 4)
-
-        if isinstance(result, list):
-            row_count = len(result)
-            message = "Query executed successfully"
-        elif isinstance(result, dict) and "error" in result:
-            row_count = 0
-            message = "Query failed"
-        else:
-            row_count = 0
-            message = "Query executed, but unexpected result type"
-
-        return {
-            "question": question,
-            "sql": sql,
-            "result": result,
-            "execution_time": execution_time,
-            "row_count": row_count,
-            "message": message
-        }
-
-
-    except Exception as e:
-        logging.error(f"Exception while executing query: {str(e)}")
-        return {"error": str(e)}
+    return {
+        "question": question,
+        **result
+    }

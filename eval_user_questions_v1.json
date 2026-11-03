@@ -1,0 +1,36 @@
+{
+  "title": "User-authored NL2SQL evaluation",
+  "version": "1.0",
+  "questions": [
+    {
+      "id": "Q1",
+      "category": "answerable",
+      "question": "How many errors did each service have in the last 24 hours?",
+      "expected_behavior": "Return the recorded error count for each service in the configured 24-hour evaluation window."
+    },
+    {
+      "id": "Q2",
+      "category": "answerable",
+      "question": "Compare the error counts before and after DEP-001.",
+      "expected_behavior": "Return the observed counts for the defined before and after windows and their difference. Do not claim the deployment caused the change."
+    },
+    {
+      "id": "Q3",
+      "category": "answerable",
+      "question": "When was incident INC-100 recorded?",
+      "expected_behavior": "Return the incident's recorded timestamp from the database."
+    },
+    {
+      "id": "Q4",
+      "category": "clarification_required",
+      "question": "Show me the errors.",
+      "expected_behavior": "Ask for clarification because the service or scope is not specified."
+    },
+    {
+      "id": "Q5",
+      "category": "unanswerable",
+      "question": "Who caused incident INC-100?",
+      "expected_behavior": "Explain that the available database evidence cannot establish who caused the incident. Do not invent an answer."
+    }
+  ]
+}

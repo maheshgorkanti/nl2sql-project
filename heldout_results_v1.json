@@ -1,0 +1,82 @@
+{
+  "evaluation": "heldout_v1",
+  "started_at_utc": "2026-11-03T18:43:50.850227+00:00",
+  "question_count": 8,
+  "heldout_requests_per_question": 1,
+  "heldout_retries": 0,
+  "preflight_request_excluded_from_score": true,
+  "isolation_note": "The held-out questions were written by the same author as the engine; isolation from earlier development cannot be proven.",
+  "hashes_before": {
+    "engine": "0e74419e40bc4ff704de75bd7cbde1cde0e410aa237b9792a684c30be6d32d67",
+    "app": "401bf2c0c8c963720487014aa7193a71796e6348fb7271689a45d1d779d47e33",
+    "database": "06e10a9dbd17eb47a9ed960296b62f164f38fb65aee9e6d1bdf2741e854729f3",
+    "heldout": "bb71bf4a424bfdf83cc24a47093a3fc7b7aacdda90b2d836d7822154cdca5269"
+  },
+  "hashes_after": {
+    "engine": "0e74419e40bc4ff704de75bd7cbde1cde0e410aa237b9792a684c30be6d32d67",
+    "app": "401bf2c0c8c963720487014aa7193a71796e6348fb7271689a45d1d779d47e33",
+    "database": "06e10a9dbd17eb47a9ed960296b62f164f38fb65aee9e6d1bdf2741e854729f3",
+    "heldout": "bb71bf4a424bfdf83cc24a47093a3fc7b7aacdda90b2d836d7822154cdca5269"
+  },
+  "input_hashes_unchanged": true,
+  "results": [
+    {
+      "id": "H1",
+      "http_status": 200,
+      "body": "{\"question\":\"Which critical errors were recorded in the last 24 hours?\",\"status\":\"unsupported_question\",\"message\":\"This question is not supported by the operational query rules.\"}",
+      "request_error": null,
+      "verdict": "wrongly unsupported"
+    },
+    {
+      "id": "H2",
+      "http_status": 200,
+      "body": "{\"question\":\"List the error events linked to incident INC-100.\",\"status\":\"unsupported_question\",\"message\":\"This question is not supported by the operational query rules.\"}",
+      "request_error": null,
+      "verdict": "wrongly unsupported"
+    },
+    {
+      "id": "H3",
+      "http_status": 200,
+      "body": "{\"question\":\"Which services have no failed deployment recorded?\",\"status\":\"answered\",\"category\":\"answerable\",\"result\":[[\"DEP-003\",\"SVC-003\",\"auth-api\",\"staging\",\"2026-10-12T09:30:00Z\",\"failed\"]]}",
+      "request_error": null,
+      "verdict": "manual review required: verify answer correctness"
+    },
+    {
+      "id": "H4",
+      "http_status": 200,
+      "body": "{\"question\":\"Which incidents are still open?\",\"status\":\"unsupported_question\",\"message\":\"This question is not supported by the operational query rules.\"}",
+      "request_error": null,
+      "verdict": "wrongly unsupported"
+    },
+    {
+      "id": "H5",
+      "http_status": 200,
+      "body": "{\"question\":\"How many ERROR or CRITICAL events were recorded for payments-api in the last 24 hours?\",\"status\":\"unsupported_question\",\"message\":\"This question is not supported by the operational query rules.\"}",
+      "request_error": null,
+      "verdict": "wrongly unsupported"
+    },
+    {
+      "id": "H6",
+      "http_status": 200,
+      "body": "{\"question\":\"Which incident started before 2026-10-11T12:00:00Z?\",\"status\":\"unsupported_question\",\"message\":\"This question is not supported by the operational query rules.\"}",
+      "request_error": null,
+      "verdict": "wrongly unsupported"
+    },
+    {
+      "id": "H7",
+      "http_status": 200,
+      "body": "{\"question\":\"Which service is associated with ERR-008, and what environment is it in?\",\"status\":\"unsupported_question\",\"message\":\"This question is not supported by the operational query rules.\"}",
+      "request_error": null,
+      "verdict": "wrongly unsupported"
+    },
+    {
+      "id": "H8",
+      "http_status": 200,
+      "body": "{\"question\":\"What was the customer impact of incident INC-100?\",\"status\":\"unsupported_question\",\"message\":\"This question is not supported by the operational query rules.\"}",
+      "request_error": null,
+      "verdict": "wrongly unsupported"
+    }
+  ],
+  "run_status": "completed",
+  "finished_at_utc": "2026-11-03T18:43:51.006928+00:00"
+}

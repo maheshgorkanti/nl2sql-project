@@ -1,0 +1,142 @@
+{
+    "title": "Operational NL2SQL Held-Out Evaluation",
+    "version": 1,
+    "status": "SEALED_DO_NOT_USE_FOR_TUNING",
+    "reference_time_utc": "2026-10-12T12:00:00Z",
+    "time_window_convention": "[start, end): start included, end excluded",
+    "questions": [
+        {
+            "id": "H1",
+            "category": "held_out_answerable",
+            "question": "Which critical errors were recorded in the last 24 hours?",
+            "expected_behavior": "Return critical error event IDs and timestamps inside the fixed half-open window.",
+            "expected_result": [
+                [
+                    "ERR-003",
+                    "2026-10-12T10:10:00Z"
+                ],
+                [
+                    "ERR-005",
+                    "2026-10-12T10:35:00Z"
+                ]
+            ],
+            "result_value_order": [
+                "error_id",
+                "timestamp"
+            ]
+        },
+        {
+            "id": "H2",
+            "category": "held_out_answerable",
+            "question": "List the error events linked to incident INC-100.",
+            "expected_behavior": "Return error events whose incident_id equals INC-100.",
+            "expected_result": [
+                [
+                    "ERR-003",
+                    "2026-10-12T10:10:00Z"
+                ],
+                [
+                    "ERR-004",
+                    "2026-10-12T10:15:00Z"
+                ],
+                [
+                    "ERR-005",
+                    "2026-10-12T10:35:00Z"
+                ],
+                [
+                    "ERR-006",
+                    "2026-10-12T10:50:00Z"
+                ]
+            ],
+            "result_value_order": [
+                "error_id",
+                "timestamp"
+            ]
+        },
+        {
+            "id": "H3",
+            "category": "held_out_answerable",
+            "question": "Which services have no failed deployment recorded?",
+            "expected_behavior": "Return services with no associated deployment whose status is failed.",
+            "expected_result": [
+                [
+                    "SVC-001",
+                    "payments-api"
+                ],
+                [
+                    "SVC-002",
+                    "orders-api"
+                ]
+            ],
+            "result_value_order": [
+                "service_id",
+                "service_name"
+            ]
+        },
+        {
+            "id": "H4",
+            "category": "held_out_answerable",
+            "question": "Which incidents are still open?",
+            "expected_behavior": "Return incidents whose status is open.",
+            "expected_result": [
+                [
+                    "INC-100",
+                    "open"
+                ],
+                [
+                    "INC-102",
+                    "open"
+                ]
+            ],
+            "result_value_order": [
+                "incident_id",
+                "status"
+            ]
+        },
+        {
+            "id": "H5",
+            "category": "held_out_answerable",
+            "question": "How many ERROR or CRITICAL events were recorded for payments-api in the last 24 hours?",
+            "expected_behavior": "Filter by service, the fixed time window, and severity in ERROR or CRITICAL.",
+            "expected_result": 6
+        },
+        {
+            "id": "H6",
+            "category": "held_out_answerable",
+            "question": "Which incident started before 2026-10-11T12:00:00Z?",
+            "expected_behavior": "Return incidents whose started_at is strictly earlier than the specified timestamp.",
+            "expected_result": [
+                [
+                    "INC-103",
+                    "2026-10-11T11:59:59Z"
+                ]
+            ],
+            "result_value_order": [
+                "incident_id",
+                "started_at"
+            ]
+        },
+        {
+            "id": "H7",
+            "category": "held_out_answerable",
+            "question": "Which service is associated with ERR-008, and what environment is it in?",
+            "expected_behavior": "Join error_events to services using service_id and return the actual service and environment.",
+            "expected_result": [
+                "SVC-003",
+                "auth-api",
+                "staging"
+            ],
+            "result_value_order": [
+                "service_id",
+                "service_name",
+                "environment"
+            ]
+        },
+        {
+            "id": "H8",
+            "category": "held_out_unanswerable",
+            "question": "What was the customer impact of incident INC-100?",
+            "expected_behavior": "Explain that customer-impact evidence is absent from the available schema. Do not invent impact."
+        }
+    ]
+}
